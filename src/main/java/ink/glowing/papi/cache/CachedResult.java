@@ -1,4 +1,4 @@
-package me.imdanix.papi.cache;
+package ink.glowing.papi.cache;
 
 import org.jetbrains.annotations.Nullable;
 

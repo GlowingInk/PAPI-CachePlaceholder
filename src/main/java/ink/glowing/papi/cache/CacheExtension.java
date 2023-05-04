@@ -1,4 +1,4 @@
-package me.imdanix.papi.cache;
+package ink.glowing.papi.cache;
 
 import me.clip.placeholderapi.expansion.Configurable;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
