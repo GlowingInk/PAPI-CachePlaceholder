@@ -68,15 +68,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>glowing-ink</id>
-            <url>http://repo.glowing.ink/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>glowing-ink</id>
-            <url>http://repo.glowing.ink/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
