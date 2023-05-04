@@ -2,8 +2,20 @@ package ink.glowing.papi.cache;
 
 import org.jetbrains.annotations.Nullable;
 
-public record CachedResult(@Nullable String value, long until) {
-    public boolean isOutdated() {
-        return System.currentTimeMillis() >= until;
+public final class CachedResult {
+    private final @Nullable String value;
+    private final long start;
+
+    public CachedResult(@Nullable String value, long start) {
+        this.value = value;
+        this.start = start;
+    }
+
+    public boolean isOutdated(long offset) {
+        return System.currentTimeMillis() >= start + offset;
+    }
+
+    public @Nullable String value() {
+        return value;
     }
 }

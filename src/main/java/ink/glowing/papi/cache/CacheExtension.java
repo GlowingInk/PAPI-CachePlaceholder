@@ -1,6 +1,5 @@
 package ink.glowing.papi.cache;
 
-import me.clip.placeholderapi.expansion.Configurable;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static java.lang.System.currentTimeMillis;
 import static me.clip.placeholderapi.PlaceholderAPI.setBracketPlaceholders;
 
-public final class CacheExtension extends PlaceholderExpansion implements Configurable, Listener {
+public final class CacheExtension extends PlaceholderExpansion implements Listener {
     private final Map<UUID, Map<String, CachedResult>> cache = new ConcurrentHashMap<>();
 
     @EventHandler
@@ -36,28 +35,39 @@ public final class CacheExtension extends PlaceholderExpansion implements Config
 
     @Override
     public @NotNull String getVersion() {
-        return "1.0";
+        return "1.1";
     }
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
         if (player == null) return null;
-        var playerCache = cache.computeIfAbsent(player.getUniqueId(), (u) -> new ConcurrentHashMap<>());
+        String[] split = params.split("_", 2);
+        if (split.length == 1) {
+            return null;
+        }
+        long offset;
+        try {
+            offset = Long.parseLong(split[0]) * 1000;
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+        return findResult(player, split[1], offset);
+    }
+
+    private @Nullable String findResult(@NotNull Player player, @NotNull String params, long offset) {
+        Map<String, CachedResult> playerCache = cache.computeIfAbsent(player.getUniqueId(), (u) -> new ConcurrentHashMap<>());
         CachedResult result = playerCache.get(params);
-        if (result == null || result.isOutdated()) {
+        if (result != null && offset <= 0) {
+            return result.value();
+        } else if (result == null || result.isOutdated(offset)) {
             String bracket = "{" + params + "}";
             String parsed = setBracketPlaceholders(player, bracket);
             result = new CachedResult(
                     parsed.equals(bracket) ? null : parsed,
-                    currentTimeMillis() + getLong("cache-time", 10_000L)
+                    currentTimeMillis()
             );
             playerCache.put(params, result);
         }
         return result.value();
-    }
-
-    @Override
-    public Map<String, Object> getDefaults() {
-        return Map.of("cache-time", 10_000L);
     }
 }
