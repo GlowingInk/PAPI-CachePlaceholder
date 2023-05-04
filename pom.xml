@@ -54,6 +54,19 @@
             <version>2.11.3</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.7.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>4.11.0</version> <!-- Mockito 5.X requires Java 11 -->
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <distributionManagement>
