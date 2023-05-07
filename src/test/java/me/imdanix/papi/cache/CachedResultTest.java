@@ -1,4 +1,4 @@
-package ink.glowing.papi.cache;
+package me.imdanix.papi.cache;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

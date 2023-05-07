@@ -1,4 +1,4 @@
-package ink.glowing.papi.cache;
+package me.imdanix.papi.cache;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
