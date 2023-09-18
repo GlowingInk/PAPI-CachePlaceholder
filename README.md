@@ -1,3 +1,5 @@
+# Archived - moved to [UtilityHooks](https://github.com/imDaniX/UtilityHooks)
+
 # CachePlaceholder
 A simple placeholder expansion that caches the result of other placeholders for desired period.
 
